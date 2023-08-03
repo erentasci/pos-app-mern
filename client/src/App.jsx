@@ -1,21 +1,15 @@
-import React from "react";
-import Header from "./components/header/Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
+
 function App() {
   return (
-    <>
-      <Header />
-      <div className="home px-6 flex justify-between">
-        <div className="categories">
-          <div>categories</div>
-        </div>
-        <div className="products">
-          <div className="">products</div>
-        </div>
-        <div className="">
-          <div>cart totals</div>
-        </div>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
