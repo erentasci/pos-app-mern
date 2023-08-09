@@ -8,6 +8,7 @@ const PORT = 5000;
 const categoryRoute = require("./routes/categories");
 const productRoute = require("./routes/products");
 const billRoute = require("./routes/bills");
+const authRoute = require("./routes/auth");
 
 // Dotenv Config
 dotenv.config();
@@ -29,6 +30,7 @@ const connect = async () => {
 app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
 app.use("/api/bills", billRoute);
+app.use("/api/auth", authRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
