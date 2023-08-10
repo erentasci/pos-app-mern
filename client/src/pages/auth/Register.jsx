@@ -17,7 +17,8 @@ const Register = () => {
                   required: true,
                   message: "Kullanıcı Adı Alanı Boş Bırakılamaz!",
                 },
-              ]}>
+              ]}
+            >
               <Input />
             </Form.Item>
             <Form.Item
@@ -28,7 +29,8 @@ const Register = () => {
                   required: true,
                   message: "E-mail Alanı Boş Bırakılamaz!",
                 },
-              ]}>
+              ]}
+            >
               <Input />
             </Form.Item>
             <Form.Item
@@ -39,7 +41,8 @@ const Register = () => {
                   required: true,
                   message: "Şifre Alanı Boş Bırakılamaz!",
                 },
-              ]}>
+              ]}
+            >
               <Input.Password />
             </Form.Item>
             <Form.Item
@@ -57,11 +60,14 @@ const Register = () => {
                       return Promise.resolve();
                     }
                     return Promise.reject(
-                      new Error("Şifreler Aynı Olmak Zorunda!")
+                      new Error(
+                        "Şifreler Aynı Olmak Zorunda!"
+                      )
                     );
                   },
                 }),
-              ]}>
+              ]}
+            >
               <Input.Password />
             </Form.Item>
             <Form.Item>
@@ -69,7 +75,8 @@ const Register = () => {
                 type="primary"
                 htmlType="submit"
                 className="w-full"
-                size="large">
+                size="large"
+              >
                 Kaydol
               </Button>
             </Form.Item>
