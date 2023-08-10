@@ -1,9 +1,8 @@
 const User = require("../models/User.js");
-const bcrypt = require("bcrypt");
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
 
-//Register
+//! register
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -17,11 +16,11 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     res.status(200).json("A new user created successfully.");
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 
-//Login
+//! login
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -38,7 +37,7 @@ router.post("/login", async (req, res) => {
       res.status(200).json(user);
     }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 
