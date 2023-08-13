@@ -6,6 +6,7 @@ import Products from "../components/products/Products";
 
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -21,6 +22,20 @@ const HomePage = () => {
       }
     };
 
+    const fetchAllProducts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/products/get-all"
+        );
+        const productData = await response.json();
+        console.log(productData);
+        setProducts(productData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAllProducts();
     fetchAllCategories();
   }, []);
 
@@ -32,7 +47,7 @@ const HomePage = () => {
           <Categories categories={categories} setCategories={setCategories} />
         </div>
         <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10">
-          <Products />
+          <Products products={products} setProducts={setProducts} />
         </div>
         <div className="cart-wrapper min-w-[300px] md:-mr-[24px] md:-mt-[24px] border">
           <CartTotals />
