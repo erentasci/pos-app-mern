@@ -59,14 +59,10 @@ const EditProduct = () => {
     }
   };
 
-  useEffect(() => {
-    form.setFieldsValue(editingItem);
-  }, [editingItem, form]);
-
-  const deleteCategory = (id) => {
+  const deleteProduct = (id) => {
     if (window.confirm("Emin misiniz?")) {
       try {
-        fetch("http:localhost:5000/api/products/delete-product", {
+        fetch("http://localhost:5000/api/products/delete-product", {
           method: "DELETE",
           body: JSON.stringify({ productId: id }),
           headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -79,6 +75,10 @@ const EditProduct = () => {
       }
     }
   };
+
+  useEffect(() => {
+    form.setFieldsValue(editingItem);
+  }, [editingItem, form]);
 
   const columns = [
     {
@@ -128,7 +128,9 @@ const EditProduct = () => {
             <Button
               type="link"
               danger
-              onClick={() => deleteCategory(record._id)}>
+              onClick={() => {
+                deleteProduct(record._id);
+              }}>
               Sil
             </Button>
           </div>
