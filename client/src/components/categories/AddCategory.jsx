@@ -9,7 +9,7 @@ const AddCategory = ({
 }) => {
   const [form] = Form.useForm();
   const onSubmit = (values) => {
-    console.log(values);
+
     try {
       fetch("http://localhost:5000/api/categories/add-category", {
         method: "POST",

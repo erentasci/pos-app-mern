@@ -21,5 +21,6 @@ body {
 
   .categories::-webkit-scrollbar {
     display: none;
-  }
+  
+}
 }
