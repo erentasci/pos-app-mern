@@ -1,8 +1,21 @@
 import React from "react";
+import { addProduct } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductItem = ({ product }) => {
+  // const cart = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addProduct(product));
+  };
+
+  // console.log(cart.cartItems);
+
   return (
-    <div className="transition-all border cursor-pointer select-none product-item hover:shadow-lg">
+    <div
+      className="transition-all border cursor-pointer select-none product-item hover:shadow-lg"
+      onClick={handleAddToCart}>
       <div className="product-img">
         <img
           src={product.img}

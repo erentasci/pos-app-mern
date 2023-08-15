@@ -9,17 +9,21 @@ import {
   BarChartOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+
+  const cart = useSelector((state) => state.cart);
+
   return (
-    <div className="border-b mb-6">
-      <header className="py-4 px-6 flex justify-between items-center gap-10">
+    <div className="mb-6 border-b">
+      <header className="flex items-center justify-between gap-10 px-6 py-4">
         <div className="logo">
           <Link to="/">
             <h2 className="text-2xl font-bold md:text-4xl">LOGO</h2>
           </Link>
         </div>
-        <div className="header-search flex-1 flex justify-center">
+        <div className="flex justify-center flex-1 header-search">
           <Input
             size="large"
             placeholder="Ürün Ara..."
@@ -27,47 +31,47 @@ const Header = () => {
             className="rounded-full max-w-[800px]"
           />
         </div>
-        <div className="menu-links flex justify-between items-center gap-7 md:static fixed z-50 bottom-0 md:w-auto w-screen md:bg-transparent bg-white left-0 md:border-t-0 border-t md:px-0 px-4 py-1">
+        <div className="fixed bottom-0 left-0 z-50 flex items-center justify-between w-screen px-4 py-1 bg-white border-t menu-links gap-7 md:static md:w-auto md:bg-transparent md:border-t-0 md:px-0">
           <Link
             to={"/"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-            <HomeOutlined className="md:text-2xl text-xl" />
+            <HomeOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Ana Sayfa</span>
           </Link>
-          <Badge count={5} offset={[0, 6]} className="md:flex hidden">
+          <Badge count={cart.cartItems.length} offset={[0, 6]} className="hidden md:flex">
             <Link
               to={"/cart"}
               className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-              <ShoppingCartOutlined className="md:text-2xl text-xl" />
+              <ShoppingCartOutlined className="text-xl md:text-2xl" />
               <span className="md:text-xs text-[10px]">Sepet</span>
             </Link>
           </Badge>
           <Link
             to={"/bills"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-            <CopyOutlined className="md:text-2xl text-xl" />
+            <CopyOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Faturalar</span>
           </Link>
           <Link
             to={"/customers"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-            <UserOutlined className="md:text-2xl text-xl" />
+            <UserOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Müşteriler</span>
           </Link>
           <Link
             to={"/statistic"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-            <BarChartOutlined className="md:text-2xl text-xl" />
+            <BarChartOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">İstatistikler</span>
           </Link>
           <Link
             to={"/"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
-            <LogoutOutlined className="md:text-2xl text-xl" />
+            <LogoutOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Çıkış</span>
           </Link>
         </div>
-        <Badge count={5} offset={[0, 6]} className="md:hidden flex">
+        <Badge count={5} offset={[0, 6]} className="flex md:hidden">
           <Link
             to={"/"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
