@@ -1,40 +1,103 @@
-import { Button, Card, Table } from "antd";
+import { Button, Card, Popconfirm, Table, message } from "antd";
 import { useState } from "react";
 import CreateBill from "../components/cart/CreateBill.jsx";
 import Header from "../components/header/Header.jsx";
+import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  increaseProductQuantity,
+  decreaseProductQuantity,
+  deleteProduct,
+} from "../redux/cartSlice.js";
 
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  console.log(cart.cartItems);
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Ürün Görseli",
+      dataIndex: "img",
+      key: "img",
+      width: "125px",
+      render: (img) => (
+        <img src={img} alt={img} className="w-full h-20 object-cover " />
+      ),
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Ürün Adı",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Ürün Kategorisi",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Ürün Fiyatı",
+      dataIndex: "price",
+      key: "price",
+      render: (text) => <span>{text.toFixed(2)}₺</span>,
+    },
+    {
+      title: "Ürün Adedi",
+      dataIndex: "quantity",
+      key: "quantity",
+      render: (_, record) => (
+        <div className="flex items-center">
+          <Button
+            type="primary"
+            size="small"
+            className="w-full flex items-center justify-center !rounded-full"
+            onClick={() => dispatch(increaseProductQuantity(record))}
+            icon={<PlusCircleOutlined />}
+          />
+          <span className="font-bold w-4 inline-block text-center mx-1">
+            {record.quantity}
+          </span>
+          <Button
+            type="primary"
+            size="small"
+            className="w-full flex items-center justify-center !rounded-full"
+            onClick={() =>
+              record.quantity === 1
+                ? dispatch(deleteProduct(record))
+                : dispatch(decreaseProductQuantity(record))
+            }
+            icon={<MinusCircleOutlined />}
+          />
+        </div>
+      ),
+    },
+    {
+      title: "Toplam Fiyat",
+      dataIndex: "total",
+      key: "total",
+      render: (_, record) => (
+        <span>{(record.price * record.quantity).toFixed(2)}₺</span>
+      ),
+    },
+    {
+      title: "Actions",
+      render: (_, record) => {
+        return (
+          <Popconfirm
+            title="Silmek için emin misiniz?"
+            onConfirm={() => {
+              dispatch(deleteProduct(record));
+              message.success("Ürün Sepetten Silindi.");
+            }}
+            okText="Evet"
+            cancelText="Hayır">
+            <Button type="link" danger>
+              Sil
+            </Button>
+          </Popconfirm>
+        );
+      },
     },
   ];
 
@@ -45,7 +108,7 @@ const CartPage = () => {
       <Header />
       <div className="px-6">
         <Table
-          dataSource={dataSource}
+          dataSource={cart.cartItems}
           columns={columns}
           bordered
           pagination={false}
@@ -54,22 +117,29 @@ const CartPage = () => {
           <Card className="w-72">
             <div className="flex justify-between">
               <span>Ara Toplam</span>
-              <span>549.00₺</span>
+              <span>{cart.total}₺</span>
             </div>
             <div className="flex justify-between my-2">
               <span>KDV Toplam %8</span>
-              <span className="text-red-600">+43.92₺</span>
+              <span className="text-red-600">
+                {" "}
+                {(cart.total * cart.tax) / 100}₺
+              </span>
             </div>
             <div className="flex justify-between">
-              <b>Toplam</b>
-              <b>592.92₺</b>
+              <b>Genel Toplam</b>
+              <b>
+                {(cart.total + (cart.total * cart.tax) / 100).toFixed(2) > 0
+                  ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2)
+                  : 0}
+                ₺
+              </b>
             </div>
             <Button
               className="mt-4 w-full"
               type="primary"
               size="large"
-              onClick={() => setIsModalOpen(true)}
-            >
+              onClick={() => setIsModalOpen(true)}>
               Sipariş Oluştur
             </Button>
           </Card>
