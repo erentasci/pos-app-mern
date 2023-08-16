@@ -14,7 +14,6 @@ const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  console.log(cart.cartItems);
 
   const columns = [
     {
@@ -122,7 +121,6 @@ const CartPage = () => {
             <div className="flex justify-between my-2">
               <span>KDV Toplam %8</span>
               <span className="text-red-600">
-                {" "}
                 {(cart.total * cart.tax) / 100}₺
               </span>
             </div>
@@ -139,7 +137,10 @@ const CartPage = () => {
               className="mt-4 w-full"
               type="primary"
               size="large"
-              onClick={() => setIsModalOpen(true)}>
+              disabled={cart.cartItems.length === 0}
+              onClick={() => {
+                setIsModalOpen(true);
+              }}>
               Sipariş Oluştur
             </Button>
           </Card>
