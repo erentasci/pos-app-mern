@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import {
   ClearOutlined,
   PlusCircleOutlined,
@@ -9,6 +9,7 @@ import {
   deleteProduct,
   increaseProductQuantity,
   decreaseProductQuantity,
+  resetCart,
 } from "../../redux/cartSlice";
 
 const CartTotals = () => {
@@ -29,7 +30,10 @@ const CartTotals = () => {
                   src={item.img}
                   alt=""
                   className="object-cover w-16 h-16"
-                  onClick={() => dispatch(deleteProduct(item))}
+                  onClick={() => {
+                    dispatch(deleteProduct(item));
+                    message.success("Ürün Sepetten Çıkarıldı.");
+                  }}
                 />
                 <div className="flex flex-col ml-2">
                   <b>{item.title}</b>
@@ -94,15 +98,26 @@ const CartTotals = () => {
           </div>
         </div>
         <div className="px-2 py-4">
-          <Button type="primary" size="large" className="w-full">
+          <Button
+            type="primary"
+            size="large"
+            className="w-full"
+            disabled={cart.cartItems.length === 0}>
             Sipariş Oluştur
           </Button>
           <Button
+            disabled={cart.cartItems.length === 0}
             type="primary"
             size="large"
             className="flex items-center justify-center w-full mt-2"
             icon={<ClearOutlined />}
-            danger>
+            danger
+            onClick={() => {
+              if (window.confirm("Emin Misiniz?")) {
+                dispatch(resetCart());
+                message.success("Sepetiniz Temizlendi.");
+              }
+            }}>
             Temizle
           </Button>
         </div>

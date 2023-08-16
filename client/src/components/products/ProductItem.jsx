@@ -1,4 +1,5 @@
 import React from "react";
+import { message } from "antd";
 import { addProduct } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 
@@ -13,6 +14,7 @@ const ProductItem = ({ product }) => {
         quantity: 1,
       })
     );
+    message.success("Ürün Başarıyla Sepete Eklendi");
   };
 
   // console.log(cart.cartItems);
