@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/cartSlice";
 
 const CartTotals = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
@@ -16,7 +16,7 @@ const CartTotals = () => {
         Sepetteki Ürünler
       </h2>
       <ul className="flex flex-col px-2 py-2 overflow-y-auto cart-items gap-y-3">
-        {cartItems.map((item) => (
+        {cart.cartItems.map((item) => (
           <li className="flex justify-between cart-item" key={item._id}>
             <div className="flex items-center">
               <img
@@ -54,17 +54,24 @@ const CartTotals = () => {
         <div className="border-t border-b">
           <div className="flex justify-between p-2">
             <b>Ara Toplam</b>
-            <span>99₺</span>
+            <span>{cart.total}₺</span>
           </div>
           <div className="flex justify-between p-2">
-            <b>KDV %8</b>
-            <span className="text-red-700">+7.92₺</span>
+            <b>KDV %{cart.tax}</b>
+            <span className="text-red-700">
+              {(cart.total * cart.tax) / 100}₺
+            </span>
           </div>
         </div>
         <div className="mt-4 border-b">
           <div className="flex justify-between p-2">
             <b className="text-xl text-green-500">Genel Toplam</b>
-            <span className="text-xl">99₺</span>
+            <span className="text-xl">
+              {(cart.total + (cart.total * cart.tax) / 100).toFixed(2) > 0
+                ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2)
+                : 0}
+              ₺
+            </span>
           </div>
         </div>
         <div className="px-2 py-4">
