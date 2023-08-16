@@ -80,6 +80,10 @@ const BillPage = () => {
           bordered
           pagination={false}
           dataSource={bills}
+          scroll={{
+            x: 1000,
+            y: 500,
+          }}
         />
         {/* <div className="cart-total flex justify-end mt-4">
           <Card className="w-72">
