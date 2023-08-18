@@ -74,7 +74,7 @@ const BillPage = () => {
     <>
       <Header />
       <div className="px-6">
-        <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
+        <h1 className="mb-4 text-4xl font-bold text-center">Faturalar</h1>
         <Table
           columns={columns}
           bordered
@@ -85,10 +85,10 @@ const BillPage = () => {
             y: 500,
           }}
         />
-        {/* <div className="cart-total flex justify-end mt-4">
+        {/* <div className="flex justify-end mt-4 cart-total">
           <Card className="w-72">
             <Button
-              className="mt-4 w-full"
+              className="w-full mt-4"
               type="primary"
               size="large"
               onClick={() => setIsModalOpen(true)}>
