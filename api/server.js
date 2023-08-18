@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
+const logger = require("morgan");
 const bodyParser = require("body-parser");
 
 const port = 5000;
@@ -26,6 +27,7 @@ const connect = async () => {
 };
 
 // middlewares
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(cors());
 
