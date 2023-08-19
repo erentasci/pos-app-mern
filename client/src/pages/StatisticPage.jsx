@@ -15,7 +15,7 @@ const StatisticPage = () => {
   }, []);
 
   const fetchData = () => {
-    fetch("http://localhost:5000/api/bills/get-all")
+    fetch(process.env.REACT_APP_SERVER_URL + "/api/bills/get-all")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -26,7 +26,7 @@ const StatisticPage = () => {
   const fetchAllProducts = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/products/get-all"
+        process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
       );
       const productData = await response.json();
       setProducts(productData);

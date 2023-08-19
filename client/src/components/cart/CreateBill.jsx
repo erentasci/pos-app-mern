@@ -10,19 +10,24 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
 
   const onFinish = async (values) => {
     try {
-      const res = await fetch("http://localhost:5000/api/bills/add-bill", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...values,
-          cartItems: cart.cartItems,
-          subTotal: cart.total,
-          tax: (cart.total * cart.tax) / 100,
-          totalAmount: (cart.total + (cart.total * cart.tax) / 100).toFixed(2),
-        }),
-      });
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/bills/add-bill",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...values,
+            cartItems: cart.cartItems,
+            subTotal: cart.total,
+            tax: (cart.total * cart.tax) / 100,
+            totalAmount: (cart.total + (cart.total * cart.tax) / 100).toFixed(
+              2
+            ),
+          }),
+        }
+      );
       if (res.status === 200) {
         message.success("Fatura Başarıyla Oluşturuldu");
         setIsModalOpen(false);

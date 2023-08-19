@@ -12,7 +12,7 @@ const AddProduct = ({
 
   const onSubmit = (values) => {
     try {
-      fetch("http://localhost:5000/api/products/add-product", {
+      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/add-product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
