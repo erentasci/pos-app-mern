@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Badge, Input, message } from "antd";
 import {
   SearchOutlined,
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 const Header = ({ setSearchedText }) => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const logOut = () => {
     if (window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
       localStorage.removeItem("posUser");
@@ -30,7 +31,11 @@ const Header = ({ setSearchedText }) => {
             <h2 className="text-2xl font-bold md:text-4xl">LOGO</h2>
           </Link>
         </div>
-        <div className="flex justify-center flex-1 header-search">
+        <div
+          className="flex justify-center flex-1 header-search"
+          onClick={() => {
+            pathname !== "/" && navigate("/");
+          }}>
           <Input
             size="large"
             placeholder="Ürün Ara..."

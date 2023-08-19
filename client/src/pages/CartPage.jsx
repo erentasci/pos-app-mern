@@ -118,7 +118,7 @@ const CartPage = () => {
       key: "img",
       width: "125px",
       render: (img) => (
-        <img src={img} alt={img} className="w-full h-20 object-cover " />
+        <img src={img} alt={img} className="object-cover w-full h-20 " />
       ),
     },
     {
@@ -153,7 +153,7 @@ const CartPage = () => {
             onClick={() => dispatch(increaseProductQuantity(record))}
             icon={<PlusCircleOutlined />}
           />
-          <span className="font-bold w-4 inline-block text-center mx-1">
+          <span className="inline-block w-4 mx-1 font-bold text-center">
             {record.quantity}
           </span>
           <Button
@@ -210,8 +210,9 @@ const CartPage = () => {
           columns={columns}
           bordered
           pagination={false}
+          rowKey="_id"
         />
-        <div className="cart-total flex justify-end mt-4">
+        <div className="flex justify-end mt-4 cart-total">
           <Card className="w-72">
             <div className="flex justify-between">
               <span>Ara Toplam</span>
@@ -233,7 +234,7 @@ const CartPage = () => {
               </b>
             </div>
             <Button
-              className="mt-4 w-full"
+              className="w-full mt-4"
               type="primary"
               size="large"
               disabled={cart.cartItems.length === 0}
