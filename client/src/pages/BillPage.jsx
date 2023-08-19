@@ -1,4 +1,4 @@
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Table, Spin } from "antd";
 import { useEffect, useRef, useState } from "react";
 import PrintBill from "../components/bills/PrintBill.jsx";
 import Header from "../components/header/Header.jsx";
@@ -7,7 +7,7 @@ import Highlighter from "react-highlight-words";
 
 const BillPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [billItems, setBillItems] = useState([]);
+  const [billItems, setBillItems] = useState();
   const [customer, setCustomer] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -175,20 +175,27 @@ const BillPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
-        <h1 className="mb-4 text-4xl font-bold text-center">Faturalar</h1>
-        <Table
-          dataSource={billItems}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{
-            x: 1000,
-            y: 300,
-          }}
-          rowKey="_id"
+      <h1 className="mb-4 text-4xl font-bold text-center">Faturalar</h1>
+      {billItems ? (
+        <div className="px-6">
+          <Table
+            dataSource={billItems}
+            columns={columns}
+            bordered
+            pagination={false}
+            scroll={{
+              x: 1000,
+              y: 300,
+            }}
+            rowKey="_id"
+          />
+        </div>
+      ) : (
+        <Spin
+          size="large"
+          className="absolute flex justify-center w-screen h-screen top-1/2"
         />
-      </div>
+      )}
       <PrintBill
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Header from "../components/header/Header.jsx";
 import StatisticCard from "../components/statistics/StatisticCard.jsx";
 import { Area, Pie } from "@ant-design/plots";
+import { Spin } from "antd";
 
 const StatisticPage = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [products, setProducts] = useState();
+  const user = JSON.parse(localStorage.getItem("posUser"));
 
   useEffect(() => {
     fetchData();
@@ -87,45 +89,57 @@ const StatisticPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6 pb-20 md:pb-0">
-        <h1 className="mb-4 text-4xl font-bold text-center">İstatistiklerim</h1>
-        <div className="statistic-section">
-          <h2 className="text-lg">
-            Hoş geldin{" "}
-            <span className="text-xl font-bold text-green-700">admin</span>.
-          </h2>
-          <div className="grid gap-4 my-10 statistic-cards xl:grid-cols-4 md:grid-cols-2 md:gap-10">
-            <StatisticCard
-              title={"Toplam Müşteri"}
-              amount={data?.length}
-              img={"images/user.png"}
-            />
-            <StatisticCard
-              title={"Toplam Kazanç"}
-              amount={totalAmount()}
-              img={"images/money.png"}
-            />
-            <StatisticCard
-              title={"Toplam Satış"}
-              amount={data?.length}
-              img={"images/sale.png"}
-            />
-            <StatisticCard
-              title={"Toplam Ürün"}
-              amount={products?.length}
-              img={"images/product.png"}
-            />
-          </div>
-          <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
-            <div className="lg:w-1/2 lg:h-72 h-72">
-              <Area {...config} />
+      {data ? (
+        <div className="px-6 pb-20 md:pb-0">
+          <h1 className="mb-4 text-4xl font-bold text-center">
+            İstatistiklerim
+          </h1>
+          <div className="statistic-section">
+            <h2 className="text-lg">
+              Hoş geldin
+              <span className="ml-2 text-xl font-bold text-green-700">
+                {user?.username}
+              </span>
+              .
+            </h2>
+            <div className="grid gap-4 my-10 statistic-cards xl:grid-cols-4 md:grid-cols-2 md:gap-10">
+              <StatisticCard
+                title={"Toplam Müşteri"}
+                amount={data?.length}
+                img={"images/user.png"}
+              />
+              <StatisticCard
+                title={"Toplam Kazanç"}
+                amount={totalAmount()}
+                img={"images/money.png"}
+              />
+              <StatisticCard
+                title={"Toplam Satış"}
+                amount={data?.length}
+                img={"images/sale.png"}
+              />
+              <StatisticCard
+                title={"Toplam Ürün"}
+                amount={products?.length}
+                img={"images/product.png"}
+              />
             </div>
-            <div className="lg:w-1/2 lg:h-72 h-72">
-              <Pie {...config2} />
+            <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
+              <div className="lg:w-1/2 lg:h-72 h-72">
+                <Area {...config} />
+              </div>
+              <div className="lg:w-1/2 lg:h-72 h-72">
+                <Pie {...config2} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Spin
+          size="large"
+          className="absolute flex justify-center w-screen h-screen top-1/2"
+        />
+      )}
     </>
   );
 };

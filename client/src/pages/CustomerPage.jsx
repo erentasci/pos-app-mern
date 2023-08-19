@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 import Header from "../components/header/Header.jsx";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
@@ -132,20 +132,27 @@ const CustomerPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
-        <h1 className="mb-4 text-4xl font-bold text-center">Müşterilerim</h1>
-        <Table
-          dataSource={billItem}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{
-            x: 1000,
-            y: 500,
-          }}
-          rowKey="_id"
+      {billItem ? (
+        <div className="px-6">
+          <h1 className="mb-4 text-4xl font-bold text-center">Müşterilerim</h1>
+          <Table
+            dataSource={billItem}
+            columns={columns}
+            bordered
+            pagination={false}
+            scroll={{
+              x: 1000,
+              y: 500,
+            }}
+            rowKey="_id"
+          />
+        </div>
+      ) : (
+        <Spin
+          size="large"
+          className="absolute flex justify-center w-screen h-screen top-1/2"
         />
-      </div>
+      )}
     </>
   );
 };
