@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = ({ setSearchedText }) => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const logOut = () => {
@@ -36,6 +36,9 @@ const Header = () => {
             placeholder="Ürün Ara..."
             prefix={<SearchOutlined />}
             className="rounded-full max-w-[800px]"
+            onChange={(e) =>
+              setSearchedText(e.target.value.toLocaleLowerCase())
+            }
           />
         </div>
         <div className="fixed bottom-0 left-0 z-50 flex items-center justify-between w-screen px-4 py-1 bg-white border-t menu-links gap-7 md:static md:w-auto md:bg-transparent md:border-t-0 md:px-0">

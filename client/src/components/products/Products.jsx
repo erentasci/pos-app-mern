@@ -9,6 +9,7 @@ const Products = ({
   setProducts,
   categories,
   categoryTitle,
+  searchedText,
 }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -24,14 +25,13 @@ const Products = ({
     }
   }, [categoryTitle, products]);
 
-  console.log(filteredProducts);
-  console.log(categoryTitle);
-
   return (
     <div className="grid gap-4 products-wrapper grid-cols-card">
-      {filteredProducts.map((product) => (
-        <ProductItem product={product} key={product._id} />
-      ))}
+      {filteredProducts
+        .filter((item) => item.title.toLowerCase().includes(searchedText))
+        .map((product) => (
+          <ProductItem product={product} key={product._id} />
+        ))}
 
       <div
         className="flex items-center justify-center transition-all bg-purple-800 border cursor-pointer select-none product-item hover:shadow-lg hover:opacity-90"
