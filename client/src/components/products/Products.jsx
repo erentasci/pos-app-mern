@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import ProductItem from "./ProductItem";
 import AddProduct from "./AddProduct";
 
-const Products = ({ products, setProducts, categories }) => {
+const Products = ({
+  products,
+  setProducts,
+  categories,
+  categoryTitle,
+}) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState(products);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (categoryTitle === "Tümü") {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(
+        products.filter((product) => product.category === categoryTitle)
+      );
+    }
+  }, [categoryTitle, products]);
+
+  console.log(filteredProducts);
+  console.log(categoryTitle);
 
   return (
     <div className="grid gap-4 products-wrapper grid-cols-card">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductItem product={product} key={product._id} />
       ))}
 

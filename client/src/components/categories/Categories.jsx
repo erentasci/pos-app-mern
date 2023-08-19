@@ -4,14 +4,24 @@ import "./style.css";
 import AddCategory from "./AddCategory";
 import EditCategory from "./EditCategory";
 
-const Categories = ({ categories, setCategories }) => {
+const Categories = ({
+  categories,
+  setCategories,
+  setCategoryTitle,
+  categoryTitle,
+}) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   return (
     <ul className="flex gap-4 text-lg md:flex-col">
       {categories.map((category) => (
-        <li key={category._id} className="category-item">
+        <li
+          key={category._id}
+          className={`${
+            category.title === categoryTitle ? "!bg-pink-700" : ""
+          } category-item hover:opacity-90"}`}
+          onClick={() => setCategoryTitle(category.title)}>
           <span>{category?.title}</span>
         </li>
       ))}
