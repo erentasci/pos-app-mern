@@ -49,7 +49,9 @@ const Header = ({ setSearchedText }) => {
         <div className="fixed bottom-0 left-0 z-50 flex items-center justify-between w-screen px-4 py-1 bg-white border-t menu-links gap-7 md:static md:w-auto md:bg-transparent md:border-t-0 md:px-0">
           <Link
             to={"/"}
-            className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
+            className={`menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center ${
+              pathname === "/" && "active"
+            }`}>
             <HomeOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Ana Sayfa</span>
           </Link>
@@ -59,26 +61,34 @@ const Header = ({ setSearchedText }) => {
             className="hidden md:flex">
             <Link
               to={"/cart"}
-              className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
+              className={`menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center ${
+                pathname === "/cart" && "active"
+              }`}>
               <ShoppingCartOutlined className="text-xl md:text-2xl" />
               <span className="md:text-xs text-[10px]">Sepet</span>
             </Link>
           </Badge>
           <Link
             to={"/bills"}
-            className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
+            className={`menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center ${
+              pathname === "/bills" && "active"
+            }`}>
             <CopyOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Faturalar</span>
           </Link>
           <Link
             to={"/customers"}
-            className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
+            className={`menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center ${
+              pathname === "/customers" && "active"
+            }`}>
             <UserOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">Müşteriler</span>
           </Link>
           <Link
             to={"/statistic"}
-            className="menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center">
+            className={`menu-link flex flex-col hover:text-[#40a9ff] transition-all justify-center items-center ${
+              pathname === "/statistic" && "active"
+            }`}>
             <BarChartOutlined className="text-xl md:text-2xl" />
             <span className="md:text-xs text-[10px]">İstatistikler</span>
           </Link>

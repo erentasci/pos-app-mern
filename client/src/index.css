@@ -14,4 +14,6 @@ body {
   background-color: #1677ff;
 }
 
-
+.menu-link.active {
+  @apply !text-[#40a9ff];
+}
