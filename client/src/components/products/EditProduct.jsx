@@ -12,7 +12,7 @@ const EditProduct = () => {
     const getProducts = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+          process.env.REACT_APP_SERVER_URL + "api/products/get-all"
         );
         const data = await res.json();
         setProducts(data);
@@ -24,7 +24,7 @@ const EditProduct = () => {
     const getCategories = async () => {
       try {
         const response = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+          process.env.REACT_APP_SERVER_URL + "api/categories/get-all"
         );
         const categoryData = await response.json();
         setCategories(categoryData);
@@ -40,7 +40,7 @@ const EditProduct = () => {
   const onFinish = (values) => {
     console.log(values);
     try {
-      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/update-product", {
+      fetch(process.env.REACT_APP_SERVER_URL + "api/products/update-product", {
         method: "PUT",
         body: JSON.stringify({ ...values, productId: editingItem._id }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -65,7 +65,7 @@ const EditProduct = () => {
     if (window.confirm("Emin misiniz?")) {
       try {
         fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/delete-product",
+          process.env.REACT_APP_SERVER_URL + "/products/delete-product",
           {
             method: "DELETE",
             body: JSON.stringify({ productId: id }),

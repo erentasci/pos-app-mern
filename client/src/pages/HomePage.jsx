@@ -15,7 +15,7 @@ const HomePage = () => {
     const fetchAllCategories = async () => {
       try {
         const response = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+          process.env.REACT_APP_SERVER_URL + "api/categories/get-all"
         );
         const categoryData = await response.json();
         setCategories(categoryData);
@@ -27,7 +27,7 @@ const HomePage = () => {
     const fetchAllProducts = async () => {
       try {
         const response = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+          process.env.REACT_APP_SERVER_URL + "api/products/get-all"
         );
         const productData = await response.json();
         setProducts(productData);

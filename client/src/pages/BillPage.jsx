@@ -106,7 +106,7 @@ const BillPage = () => {
     const getBills = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/bills/get-all"
+          process.env.REACT_APP_SERVER_URL + "api/bills/get-all"
         );
         const data = await res.json();
         setBillItems(data);
